@@ -1,0 +1,35 @@
+flowchart LR
+    request[/여행 조건/]
+    extract[조건 구조화]
+    complete{조건 충분?}
+    ask[누락 조건 요청]
+    marketFilter[시장 개설일 필터]
+    placeFilter[주변 장소 필터]
+    route[구간 경로 계산]
+    rank[코스 점수 계산]
+    compose[추천 설명 생성]
+    validate{검증 통과?}
+    response[코스 최대 3개]
+    fallback[캐시 또는 예시 코스]
+    logs[(추천 로그)]
+
+    request --> extract
+    extract --> complete
+    complete -->|아니오| ask
+    ask -.-> request
+    complete -->|예| marketFilter
+    marketFilter --> placeFilter
+    placeFilter --> route
+    route --> rank
+    rank --> compose
+    compose --> validate
+    validate -->|예| response
+    validate -->|아니오| fallback
+    response --> logs
+    fallback --> logs
+
+    style complete fill:#FFECBD,stroke:#FFC943
+    style validate fill:#FFECBD,stroke:#FFC943
+    style response fill:#CDF4D3,stroke:#66D575
+    style fallback fill:#FFCDC2,stroke:#FF7556
+

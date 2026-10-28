@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "길따라장따라",
+    "slug": "gilttara-market",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "gilttara",
+    "userInterfaceStyle": "light",
+    "plugins": ["expo-router"],
+    "experiments": { "typedRoutes": true },
+    "android": { "package": "com.sdyoon0928.gilttara" },
+    "ios": { "bundleIdentifier": "com.sdyoon0928.gilttara" }
+  }
+}
+

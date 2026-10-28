@@ -1,0 +1,34 @@
+flowchart TD
+    launch([앱 시작]) --> session{로그인 상태?}
+    session -->|아니오| guest[게스트 시작]
+    session -->|예| home[홈]
+    guest --> home
+    home --> input[여행 조건 입력]
+    input --> validate{필수 조건 완료?}
+    validate -->|아니오| clarify[누락 조건 확인]
+    clarify --> input
+    validate -->|예| loading[추천 생성]
+    loading --> result{결과 있음?}
+    result -->|아니오| fallback[범위 확대 또는 예시 코스]
+    fallback --> input
+    result -->|예| course[추천 코스 목록]
+    course --> detail[일정 상세]
+    detail --> map[지도와 구간 정보]
+    detail --> edit[장소 교체와 순서 변경]
+    edit --> detail
+    detail --> save{로그인 상태?}
+    save -->|아니오| login[소셜 로그인]
+    login --> saved[일정 저장 완료]
+    save -->|예| saved
+    saved --> myPlan[내 일정]
+    myPlan --> visit[방문 기록]
+    visit --> verify{QR 인식 성공?}
+    verify -->|아니오| manual[장소 수동 선택]
+    verify -->|예| review[리뷰 작성]
+    manual --> review
+    review --> completed([여행 완료])
+
+    style loading fill:#C2E5FF,stroke:#3DADFF
+    style fallback fill:#FFECBD,stroke:#FFC943
+    style completed fill:#CDF4D3,stroke:#66D575
+

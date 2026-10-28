@@ -1,0 +1,42 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# JavaScript / Expo
+node_modules/
+.expo/
+dist/
+web-build/
+npm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*.log
+
+# Runtime data
+tmp/
+postgres_data/
+*.db
+*.sqlite*
+
+# Original team-project reference assets (kept locally, not versioned)
+710작업물/
+*.xlsx
+*.ipynb
+*.drawio
+*.png
+전통시장_상가매칭_광주전남_FULL.csv
+ERD.md
+schema (1).sql
+

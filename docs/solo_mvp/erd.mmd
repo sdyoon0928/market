@@ -1,0 +1,105 @@
+erDiagram
+    APP_USER ||--o{ TRIP_PLAN : creates
+    APP_USER ||--o{ FAVORITE : saves
+    APP_USER ||--o{ VISIT : records
+    APP_USER ||--o{ REVIEW : writes
+    MARKET ||--o{ MARKET_CALENDAR : has
+    MARKET ||--o{ PLACE : contains
+    MARKET ||--o{ TRIP_PLAN_ITEM : included_in
+    PLACE ||--o{ TRIP_PLAN_ITEM : included_in
+    LOCAL_EVENT ||--o{ TRIP_PLAN_ITEM : included_in
+    TRIP_PLAN ||--|{ TRIP_PLAN_ITEM : contains
+    MARKET ||--o{ QR_CODE : identifies
+    PLACE ||--o{ QR_CODE : identifies
+    QR_CODE ||--o{ VISIT : verifies
+    VISIT ||--o| REVIEW : supports
+    MARKET ||--o{ REVIEW : receives
+    PLACE ||--o{ REVIEW : receives
+
+    APP_USER {
+        uuid user_id PK
+        string email UK
+        string nickname
+        json preferences
+        string status
+    }
+    MARKET {
+        uuid market_id PK
+        string name
+        string open_cycle
+        decimal latitude
+        decimal longitude
+        date data_reference_date
+        string status
+    }
+    MARKET_CALENDAR {
+        uuid calendar_id PK
+        uuid market_id FK
+        date calendar_date
+        boolean is_open
+        string source
+    }
+    PLACE {
+        uuid place_id PK
+        uuid market_id FK
+        string place_type
+        string name
+        decimal latitude
+        decimal longitude
+        json opening_hours
+        string source_record_id
+    }
+    LOCAL_EVENT {
+        uuid event_id PK
+        string name
+        date start_date
+        date end_date
+        decimal latitude
+        decimal longitude
+    }
+    TRIP_PLAN {
+        uuid plan_id PK
+        uuid user_id FK
+        date travel_date
+        json conditions
+        int total_duration_min
+        string status
+    }
+    TRIP_PLAN_ITEM {
+        uuid item_id PK
+        uuid plan_id FK
+        uuid market_id FK
+        uuid place_id FK
+        uuid event_id FK
+        int visit_order
+        int stay_minutes
+    }
+    FAVORITE {
+        uuid favorite_id PK
+        uuid user_id FK
+        string target_type
+        uuid target_id
+    }
+    QR_CODE {
+        uuid qr_id PK
+        uuid market_id FK
+        uuid place_id FK
+        string token_hash UK
+        boolean is_active
+    }
+    VISIT {
+        uuid visit_id PK
+        uuid user_id FK
+        uuid qr_id FK
+        string verification_method
+        datetime visited_at
+    }
+    REVIEW {
+        uuid review_id PK
+        uuid user_id FK
+        uuid visit_id FK
+        int rating
+        string content
+        datetime created_at
+    }
+
